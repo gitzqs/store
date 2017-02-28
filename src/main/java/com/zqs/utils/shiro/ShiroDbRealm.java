@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.zqs.model.base.e.EStatus;
-import com.zqs.model.member.MemberInfo;
+import com.zqs.model.user.User;
 import com.zqs.utils.api.APIConstants;
 import com.zqs.utils.api.WebClient;
 import com.zqs.utils.json.JacksonUtils;
@@ -59,19 +59,19 @@ public class ShiroDbRealm extends AuthorizingRealm{
 		
 		UsernamePasswordToken token = (UsernamePasswordToken) anthenticationToken;
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("mobileNumber", token.getUsername());
-		String resp = WebClient.callRest(APIConstants.SERVER_ADDR + "memberInfo/loadAll", map);
-		MemberInfo member = (MemberInfo) JacksonUtils.json2object(resp, MemberInfo.class);
+		map.put("mobile", token.getUsername());
+		String resp = WebClient.callRest(APIConstants.SERVER_ADDR + "user/loadAll", map);
+		User user = (User) JacksonUtils.json2object(resp, User.class);
 		
-		if(null != member){
-			if((new String(token.getPassword())).equals(member.getPassword())){
-				if(member.getStatus() == EStatus.UN_ACTIVE){
+		if(null != user){
+			if((new String(token.getPassword())).equals(user.getPassword())){
+				if(user.getStatus() == EStatus.UN_ACTIVE){
 					throw new DisabledAccountException("user is disabled");
 				}
-				SecurityUtils.getSubject().getSession().setAttribute("member", member);
+				SecurityUtils.getSubject().getSession().setAttribute("member", user);
 				SecurityUtils.getSubject().getSession().setTimeout(1000 * 60 * 60 * 24);//会话时间设置：24h
 				
-				return new SimpleAuthenticationInfo(member, member.getPassword(), getName());
+				return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
 			}else{
 				logger.info("user [{}] authenticated fail with wrong password.", token.getUsername());
 			}

@@ -57,8 +57,8 @@ public class WebClient {
 	
 	public static void main(String args[]){
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("mobileNumber", "18811012138");
-		String postStatus = callRest("http://localhost:9080/unioncenter/services/rest/memberInfo/loadAll", map);
+		map.put("mobile", "18811012138");
+		String postStatus = callRest("http://localhost:9080/unioncenter/services/rest/user/loadAll", map);
 		System.out.println(postStatus);
 	}
 }
