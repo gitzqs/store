@@ -1,15 +1,15 @@
 package com.zqs.model.base.e;
 /**
- * ����״̬
+ * 基本状态
  * 
  * @author qiushi.zhou  
- * @date 2017��2��24�� ����9:46:32
+ * @date 2017年3月1日 下午4:37:25
  */
 public interface EStatus {
 	
-	/** ��Ч */
+	/** 生效 */
 	int ACTIVE = 1;
 	
-	/** ʧЧ */
+	/** 失效 */
 	int UN_ACTIVE = 0;
 }
