@@ -299,3 +299,17 @@ CREATE TABLE `tb_user_collection` (
   PRIMARY KEY (`collection_id`),
   KEY `ind_user_collection_id` (`user_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户收藏表';
+
+
+-- ----------------------------
+-- Table structure for tb_appkey
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_appkey`;
+CREATE TABLE `tb_appkey` (
+  `id` bigint(19) NOT NULL AUTO_INCREMENT,
+  `appid` varchar(100) DEFAULT NULL,
+  `appkey` varchar(100) DEFAULT NULL,
+  `status` int(1) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uni_app_id` (`appid`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='请求验证';

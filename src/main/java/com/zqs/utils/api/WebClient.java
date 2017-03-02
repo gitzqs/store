@@ -56,9 +56,9 @@ public class WebClient {
     }
 	
 	public static void main(String args[]){
-		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("mobile", "18811012138");
-		String postStatus = callRest("http://localhost:9080/unioncenter/services/rest/user/loadAll", map);
+//		Map<String,Object> map = new HashMap<String,Object>();
+//		map.put("mobile", "18811012138");
+		String postStatus = callRest("http://localhost:9080/unioncenter/services/rest/goods/menu", null);
 		System.out.println(postStatus);
 	}
 }
