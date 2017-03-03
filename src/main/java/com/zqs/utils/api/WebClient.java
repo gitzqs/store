@@ -2,8 +2,6 @@ package com.zqs.utils.api;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.sf.json.JSONObject;
 
@@ -14,6 +12,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.zqs.model.base.ReturnObject;
+import com.zqs.utils.json.JacksonUtils;
 
 /**
  * 接口调用
@@ -30,7 +31,7 @@ public class WebClient {
 	 * @param 
 	 * @return String
 	 */
-	public static String callRest(String url, Object parameter) {
+	public static ReturnObject callRest(String url, Object parameter) {
         DefaultHttpClient httpClient = new DefaultHttpClient();
         HttpPost postRequest = new HttpPost(url);
         JSONObject jsonObject = JSONObject.fromObject(parameter);
@@ -52,13 +53,13 @@ public class WebClient {
 			logger.error("接口调用失败,[{}]",e);
 		}
         
-        return jsonResponseString;
+        return JacksonUtils.json2object(jsonResponseString, ReturnObject.class);
     }
 	
 	public static void main(String args[]){
 //		Map<String,Object> map = new HashMap<String,Object>();
 //		map.put("mobile", "18811012138");
-		String postStatus = callRest("http://localhost:9080/unioncenter/services/rest/goods/menu", null);
+		ReturnObject postStatus = callRest(APIConstants.SERVER_ADDR + "goods/menu", null);
 		System.out.println(postStatus);
 	}
 }

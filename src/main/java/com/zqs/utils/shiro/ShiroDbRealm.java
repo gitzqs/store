@@ -17,7 +17,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.zqs.model.base.ReturnObject;
 import com.zqs.model.base.e.EStatus;
+import com.zqs.model.base.e.ReturnCode;
 import com.zqs.model.user.User;
 import com.zqs.utils.api.APIConstants;
 import com.zqs.utils.api.WebClient;
@@ -60,24 +62,28 @@ public class ShiroDbRealm extends AuthorizingRealm{
 		UsernamePasswordToken token = (UsernamePasswordToken) anthenticationToken;
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("mobile", token.getUsername());
-		String resp = WebClient.callRest(APIConstants.SERVER_ADDR + "user/loadAll", map);
-		User user = (User) JacksonUtils.json2object(resp, User.class);
-		
-		if(null != user){
-			if((new String(token.getPassword())).equals(user.getPassword())){
-				if(user.getStatus() == EStatus.UN_ACTIVE){
-					throw new DisabledAccountException("user is disabled");
+		ReturnObject resp = WebClient.callRest(APIConstants.SERVER_ADDR + "user/loadAll", map);
+		if(resp.getReturnCode().equals(ReturnCode.SUCCESS)){
+			User user = (User) resp.getReturnData();
+			if(null != user){
+				if((new String(token.getPassword())).equals(user.getPassword())){
+					if(user.getStatus() == EStatus.UN_ACTIVE){
+						throw new DisabledAccountException("user is disabled");
+					}
+					SecurityUtils.getSubject().getSession().setAttribute("member", user);
+					SecurityUtils.getSubject().getSession().setTimeout(1000 * 60 * 60 * 24);//会话时间设置：24h
+					
+					return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
+				}else{
+					logger.info("user [{}] authenticated fail with wrong password.", token.getUsername());
 				}
-				SecurityUtils.getSubject().getSession().setAttribute("member", user);
-				SecurityUtils.getSubject().getSession().setTimeout(1000 * 60 * 60 * 24);//会话时间设置：24h
-				
-				return new SimpleAuthenticationInfo(user, user.getPassword(), getName());
 			}else{
-				logger.info("user [{}] authenticated fail with wrong password.", token.getUsername());
+				logger.info("user [{}] authenticated fail with not exists.", token.getUsername());
 			}
 		}else{
-			logger.info("user [{}] authenticated fail with not exists.", token.getUsername());
+			throw new DisabledAccountException(resp.getReturnMsg());
 		}
+		
 		throw new AuthenticationException("can't.find.user");
 	}
 	
