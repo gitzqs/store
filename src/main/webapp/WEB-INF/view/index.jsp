@@ -215,11 +215,11 @@
         		 		<c:forEach items="${typeL.list}" var="childL">
         		 			<dl>
 		                    	<dt>${childL.name}</dt>
-		                        <%-- <dd>
+		                        <dd>
 		                        	<c:forEach items="${childL.list }" var="cddL">
 		                        		<a href="#">${cddL.name}</a>
 		                        	</c:forEach>
-		                        </dd> --%>
+		                        </dd>
 		                        <div style="clear:both;"></div>
                     		</dl>
         		 		</c:forEach>
@@ -245,12 +245,9 @@
     <div class="banner-box">
     	<div class="banner w1200">
         	<ul>
-            	<li><a href="JavaScript:;"><img src="http://placehold.it/1200x560/4D99E0/ffffff.png&text=1200x560 1" /></a></li>
-                <li><a href="JavaScript:;"><img src="http://placehold.it/1200x560/4D99E0/ffffff.png&text=1200x560 2" /></a></li>
-                <li><a href="JavaScript:;"><img src="http://placehold.it/1200x560/4D99E0/ffffff.png&text=1200x560 3" /></a></li>
-                <li><a href="JavaScript:;"><img src="http://placehold.it/1200x560/4D99E0/ffffff.png&text=1200x560 4" /></a></li>
-                <li><a href="JavaScript:;"><img src="http://placehold.it/1200x560/4D99E0/ffffff.png&text=1200x560 5" /></a></li>
-                <li><a href="JavaScript:;"><img src="http://placehold.it/1200x560/4D99E0/ffffff.png&text=1200x560 1" /></a></li>
+        		<c:forEach items="${calList}" var="calLis">
+        			<li><a href="JavaScript:;"><img src="${calLis.image}" /></a></li>
+        		</c:forEach>
                 <div style="clear:both;"></div>
             </ul>
             <a href="JavaScript:;" class="bnr bnr-left"><</a>
@@ -317,18 +314,15 @@
     
     <!--商品内容页面-->
     <div class="shopping-content w1200">
+    	<c:forEach items="${typeList}" var="tl" varStatus="vs">
     	<div class="sp-con-info">
-        	<h3 class="sp-info-tit"><span>1F</span>食品/饮料/酒水</h3>
+        	<h3 class="sp-info-tit"><span>${vs.index}F</span>${tl.name}</h3>
         	<div class="sp-info-l f-l">
-            	<a href="#"><img src="${ctx}/images/sp-con-l-tu.gif" /></a>
+            	<a href="#"><img src="${ctx}${tl.image}" /></a>
                 <div class="sp-l-b">
-                	<a href="#">零食/糖果/巧克力</a>
-                	<a href="#">饼干/糕点</a>
-                	<a href="#">生鲜</a>
-                	<a href="#">酒水饮料/乳饮料</a>
-                	<a href="#">调味/速食</a>
-                	<a href="#">粮油/干货</a>
-                	<a href="#">冲调制品 </a>
+                	<c:forEach items="${tl.list}" var="cl">
+                		<a href="#">${cl.name}</a>
+                	</c:forEach>
                 </div>
             </div>
         	<ul class="sp-info-r f-r">
@@ -527,7 +521,10 @@
             </ul>
             <div style="clear:both;"></div>
         </div>
-        <div class="sp-con-info">
+        
+        </c:forEach>
+        
+        <<%-- div class="sp-con-info">
         	<h3 class="sp-info-tit"><span style="color:#F56904;">2F</span>母婴用品/玩具</h3>
         	<div class="sp-info-l f-l">
             	<a href="#"><img src="${ctx}/images/sp-con-l-tu2.gif" /></a>
@@ -737,8 +734,8 @@
                     </li>
             </ul>
             <div style="clear:both;"></div>
-        </div>
-        <div class="sp-con-info">
+        </div> --%>
+        <<%-- div class="sp-con-info">
         	<h3 class="sp-info-tit"><span>3F</span>厨具餐具/家用清洁/纸品</h3>
         	<div class="sp-info-l f-l">
             	<a href="#"><img src="${ctx}/images/sp-con-l-tu.gif" /></a>
@@ -948,8 +945,8 @@
                     </li>
             </ul>
             <div style="clear:both;"></div>
-        </div>
-        <div class="sp-con-info">
+        </div> --%>
+        <<%-- div class="sp-con-info">
         	<h3 class="sp-info-tit"><span style="color:#F56904;">4F</span>美妆洗护/个人护理洗发护发</h3>
         	<div class="sp-info-l f-l">
             	<a href="#"><img src="${ctx}/images/sp-con-l-tu2.gif" /></a>
@@ -1159,8 +1156,8 @@
                     </li>
             </ul>
             <div style="clear:both;"></div>
-        </div>
-        <div class="sp-con-info">
+        </div> --%>
+       <%--  <div class="sp-con-info">
         	<h3 class="sp-info-tit"><span style="color:#F56904;">5F</span>家居/家访</h3>
         	<div class="sp-info-l f-l">
             	<a href="#"><img src="${ctx}/images/sp-con-l-tu2.gif" /></a>
@@ -1370,7 +1367,7 @@
                     </li>
             </ul>
             <div style="clear:both;"></div>
-        </div>
+        </ --%>div>
     </div>
     
     <!--底部服务-->
