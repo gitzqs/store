@@ -25,6 +25,15 @@ public class User extends REntity{
 	/** 密码 */
 	private String password;
 	
+	/** 再次密码 */
+	private String passwordAgain;
+	
+	/** 短信验证码 */
+	private String messageCode;
+	
+	/** 图片验证码 */
+	private String imgCode;
+	
 	/** appid */
 	private String appid;
 	
@@ -121,6 +130,30 @@ public class User extends REntity{
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getPasswordAgain() {
+		return passwordAgain;
+	}
+
+	public void setPasswordAgain(String passwordAgain) {
+		this.passwordAgain = passwordAgain;
+	}
+
+	public String getMessageCode() {
+		return messageCode;
+	}
+
+	public void setMessageCode(String messageCode) {
+		this.messageCode = messageCode;
+	}
+
+	public String getImgCode() {
+		return imgCode;
+	}
+
+	public void setImgCode(String imgCode) {
+		this.imgCode = imgCode;
 	}
 	
 	

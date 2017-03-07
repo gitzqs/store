@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2017-03-06 16:58:07
+Date: 2017-03-07 17:16:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -168,7 +168,7 @@ INSERT INTO `tb_addr` VALUES ('106', '2', '卡塔尔', 'Qatar', '1');
 INSERT INTO `tb_addr` VALUES ('107', '2', '开曼群岛', 'Cayman Islands', '4');
 INSERT INTO `tb_addr` VALUES ('108', '2', '科科斯群岛', 'Cocos(Keeling)Islands', '6');
 INSERT INTO `tb_addr` VALUES ('109', '2', '科摩罗', 'Comoros', '3');
-INSERT INTO `tb_addr` VALUES ('110', '2', '科特迪瓦', 'Cote d Ivoire', '3');
+INSERT INTO `tb_addr` VALUES ('110', '2', '科特迪瓦', 'Cote d\'Ivoire', '3');
 INSERT INTO `tb_addr` VALUES ('111', '2', '科威特', 'Kuwait', '1');
 INSERT INTO `tb_addr` VALUES ('112', '2', '克罗地亚', 'Croatia', '2');
 INSERT INTO `tb_addr` VALUES ('113', '2', '肯尼亚', 'Kenya', '3');
@@ -532,7 +532,7 @@ INSERT INTO `tb_addr` VALUES ('470', '3', '圣尼古拉斯', 'San Nicolas', '11'
 INSERT INTO `tb_addr` VALUES ('471', '3', '特雷利乌', 'Trelew', '11');
 INSERT INTO `tb_addr` VALUES ('472', '3', '乌斯怀亚', 'Ushuaia', '11');
 INSERT INTO `tb_addr` VALUES ('473', '3', '阿布扎比', 'Abu Dhabi', '12');
-INSERT INTO `tb_addr` VALUES ('474', '3', '艾因', 'Al l Ayn', '12');
+INSERT INTO `tb_addr` VALUES ('474', '3', '艾因', 'Al l\'Ayn', '12');
 INSERT INTO `tb_addr` VALUES ('475', '3', '迪拜', 'Dubai', '12');
 INSERT INTO `tb_addr` VALUES ('476', '3', '沙迦', 'Ash Shariqah', '12');
 INSERT INTO `tb_addr` VALUES ('477', '3', '巴提奈地区', 'Al-Batinah', '14');
@@ -930,9 +930,9 @@ INSERT INTO `tb_addr` VALUES ('868', '3', '惠山', 'Hyesan', '54');
 INSERT INTO `tb_addr` VALUES ('869', '3', '江界', 'Kanggye', '54');
 INSERT INTO `tb_addr` VALUES ('870', '3', '开城', 'Kaesong', '54');
 INSERT INTO `tb_addr` VALUES ('871', '3', '罗先', 'Naseon', '54');
-INSERT INTO `tb_addr` VALUES ('872', '3', '南浦', 'Namp o', '54');
+INSERT INTO `tb_addr` VALUES ('872', '3', '南浦', 'Namp\'o', '54');
 INSERT INTO `tb_addr` VALUES ('873', '3', '平壤', 'Pyongyang', '54');
-INSERT INTO `tb_addr` VALUES ('874', '3', '清津', 'Ch ongjin', '54');
+INSERT INTO `tb_addr` VALUES ('874', '3', '清津', 'Ch\'ongjin', '54');
 INSERT INTO `tb_addr` VALUES ('875', '3', '沙里院', 'Sariwon', '54');
 INSERT INTO `tb_addr` VALUES ('876', '3', '咸兴', 'Hamhung', '54');
 INSERT INTO `tb_addr` VALUES ('877', '3', '新义州', 'Sinuiju', '54');
@@ -4157,12 +4157,13 @@ CREATE TABLE `tb_goods` (
   PRIMARY KEY (`goods_id`),
   KEY `ind_goods_brand` (`brand_id`) USING BTREE,
   KEY `ind_goods_type` (`type_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='商品信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='商品信息表';
 
 -- ----------------------------
 -- Records of tb_goods
 -- ----------------------------
-INSERT INTO `tb_goods` VALUES ('1', 'TL123456', '测试商品', null, null, null, null, null, null, null, '10.00', '10', null, null, null, null, null, null);
+INSERT INTO `tb_goods` VALUES ('2', 'tl234567', '德国原装进口Wurenbacher瓦伦冰黑啤5L/桶', null, null, null, null, null, null, null, '209.00', '1000', '886', null, null, null, null, null);
+INSERT INTO `tb_goods` VALUES ('3', 'tl987654', '进口奶粉/5L', null, null, null, null, null, null, null, '399.00', '1000', '123', null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for tb_goods_activity
@@ -4238,6 +4239,69 @@ CREATE TABLE `tb_goods_comment` (
 -- Records of tb_goods_comment
 -- ----------------------------
 INSERT INTO `tb_goods_comment` VALUES ('1', '1', '1', '这个商品不行，大家不要买啊', '2017-03-06 15:30:56');
+
+-- ----------------------------
+-- Table structure for tb_goods_index
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_goods_index`;
+CREATE TABLE `tb_goods_index` (
+  `id` bigint(19) NOT NULL AUTO_INCREMENT,
+  `type_id` bigint(19) DEFAULT NULL,
+  `goods_id` bigint(19) DEFAULT NULL,
+  `begin_time` timestamp NULL DEFAULT NULL,
+  `end_time` timestamp NULL DEFAULT NULL,
+  `status` tinyint(1) DEFAULT NULL,
+  `creator_id` bigint(19) DEFAULT NULL,
+  `created_time` timestamp NULL DEFAULT NULL,
+  `last_operator_id` bigint(19) DEFAULT NULL,
+  `last_operated_time` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `ind_goods_index_id` (`goods_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COMMENT='首页商品推荐表';
+
+-- ----------------------------
+-- Records of tb_goods_index
+-- ----------------------------
+INSERT INTO `tb_goods_index` VALUES ('2', '1', '2', '2017-03-06 12:51:26', '2017-03-08 12:51:36', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('3', '1', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('4', '1', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('5', '1', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('6', '1', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('7', '1', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('8', '1', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('9', '1', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('10', '43', '3', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('11', '43', '3', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('12', '43', '3', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('13', '43', '3', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('14', '43', '3', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('15', '43', '3', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('16', '43', '3', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('17', '43', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('18', '68', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('19', '68', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('20', '68', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('21', '68', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('22', '68', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('23', '68', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('24', '68', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('25', '68', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('26', '87', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('27', '87', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('28', '87', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('29', '87', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('30', '87', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('31', '87', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('32', '87', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('33', '87', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('34', '124', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('35', '124', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('36', '124', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('37', '124', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('38', '124', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('39', '124', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('40', '124', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
+INSERT INTO `tb_goods_index` VALUES ('41', '124', '2', '2017-03-06 10:03:32', '2017-03-11 10:03:37', '1', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for tb_goods_type
@@ -4596,4 +4660,24 @@ CREATE TABLE `tb_user_collection` (
 
 -- ----------------------------
 -- Records of tb_user_collection
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_validate_code
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_validate_code`;
+CREATE TABLE `tb_validate_code` (
+  `id` bigint(19) NOT NULL AUTO_INCREMENT,
+  `mobile` varchar(20) DEFAULT NULL COMMENT '手机号',
+  `type` tinyint(1) DEFAULT NULL COMMENT '1:注册验证码；2:忘记密码验证码',
+  `code` varchar(20) DEFAULT NULL COMMENT '验证码',
+  `begin_time` timestamp NULL DEFAULT NULL COMMENT '开始时间',
+  `end_time` timestamp NULL DEFAULT NULL COMMENT '过期时间',
+  `status` tinyint(1) DEFAULT NULL COMMENT '状态',
+  PRIMARY KEY (`id`),
+  KEY `ind_validate_code_mobile` (`mobile`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='验证码表';
+
+-- ----------------------------
+-- Records of tb_validate_code
 -- ----------------------------

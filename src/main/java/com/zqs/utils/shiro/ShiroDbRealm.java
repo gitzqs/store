@@ -63,7 +63,7 @@ public class ShiroDbRealm extends AuthorizingRealm{
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("mobile", token.getUsername());
 		ReturnObject resp = WebClient.callRest(APIConstants.SERVER_ADDR + "user/loadAll", map);
-		if(resp.getReturnCode().equals(ReturnCode.SUCCESS)){
+		if(resp.getReturnCode().equals(ReturnCode.SUCCESS_CODE)){
 			User user = (User) resp.getReturnData();
 			if(null != user){
 				if((new String(token.getPassword())).equals(user.getPassword())){

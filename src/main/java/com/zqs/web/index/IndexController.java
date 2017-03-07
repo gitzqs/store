@@ -42,12 +42,12 @@ public class IndexController {
 		
 		//获取首页列表
 		ReturnObject typeResp = WebClient.callRest(APIConstants.SERVER_ADDR + "goods/menu", null);
-		if(typeResp.getReturnCode().equals(ReturnCode.SUCCESS)){
+		if(typeResp.getReturnCode().equals(ReturnCode.SUCCESS_CODE)){
 			typeList = (List<GoodsType>) typeResp.getReturnData();
 		}
 		//获取轮播
 		ReturnObject tList = WebClient.callRest(APIConstants.SERVER_ADDR + "other/recommend", null);
-		if(tList.getReturnCode().equals(ReturnCode.SUCCESS)){
+		if(tList.getReturnCode().equals(ReturnCode.SUCCESS_CODE)){
 			calList =(List<Recommend>) ((Map<String,Object>) tList.getReturnData()).get("turn");
 		}
 		

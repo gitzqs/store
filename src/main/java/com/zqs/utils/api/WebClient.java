@@ -2,8 +2,6 @@ package com.zqs.utils.api;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.sf.json.JSONObject;
 
@@ -61,7 +59,7 @@ public class WebClient {
 	public static void main(String args[]){
 //		Map<String,Object> map = new HashMap<String,Object>();
 //		map.put("goodsId", 1);
-		ReturnObject postStatus = callRest(APIConstants.SERVER_ADDR + "other/recommend", null);
+		ReturnObject postStatus = callRest(APIConstants.SERVER_ADDR + "goods/menu", null);
 		System.out.println(postStatus.getReturnData());
 	}
 }
