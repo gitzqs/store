@@ -1,5 +1,10 @@
 package com.zqs.web.user;
 
+import java.util.Map;
+
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,15 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.zqs.model.base.ReturnObject;
 import com.zqs.model.base.e.ReturnCode;
 import com.zqs.model.user.User;
+import com.zqs.utils.api.WebClient;
 import com.zqs.utils.json.JacksonUtils;
-import com.zqs.utils.string.StringUtils;
 
 @Controller
 @RequestMapping(value="user")
 public class UserController {
 	
 	/**
-	 * 
+	 * 注册
 	 * 
 	 * @param 
 	 * @return String
@@ -25,36 +30,31 @@ public class UserController {
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	@ResponseBody
 	public String register(@RequestBody String params){
-		//返回参数
-		ReturnObject returnObject = new ReturnObject();
-		String returnCode = ReturnCode.SUCCESS_CODE;
-		String returnMsg = ReturnCode.SUCCESS_MSG;
-		
 		User user = (User) JacksonUtils.json2object(params, User.class);
-		//1、验证参数是否完整
-		if(user !=null){
-			//2、验证是否缺少参数
-			if(!StringUtils.isEmpty(user.getUserName())
-					&& !StringUtils.isEmpty(user.getMobile())
-					&& !StringUtils.isEmpty(user.getPassword())
-					&& !StringUtils.isEmpty(user.getPasswordAgain())
-					&& !StringUtils.isEmpty(user.getMessageCode())
-					&& !StringUtils.isEmpty(user.getImgCode())){
-				//3、验证密码是否一致
-				if(user.getPassword().equals(user.getPasswordAgain())){
-					
-				}else{
-					
-				}
-			}else{
-				returnCode = ReturnCode.PARAMS_NULL_CODE;
-				returnCode = ReturnCode.PARAMS_NULL_MSG;
-			}
-		}else{
-			returnCode = ReturnCode.PARAMS_MISS_CODE;
-			returnCode = ReturnCode.PARAMS_MISS_MSG;
+		
+		return JacksonUtils.object2json(WebClient.callRest("user/register", user));
+	}
+	
+	/**
+	 * 登录处理
+	 * 
+	 * @param 
+	 * @return String
+	 */
+	@RequestMapping(value="loginHandle",method=RequestMethod.POST)
+	@ResponseBody
+	public String loginHandle(@RequestBody String params){
+		Subject subject = SecurityUtils.getSubject();
+		@SuppressWarnings("unchecked")
+		Map<String,Object> map = (Map<String,Object>) JacksonUtils.json2map(params);
+		ReturnObject returnObject = WebClient.callRest("user/login", map);
+		if(returnObject.getReturnCode().equals(ReturnCode.SUCCESS_CODE)){
+			User user = (User) JacksonUtils.json2object(returnObject.getReturnObj(), User.class);
+			UsernamePasswordToken token = new UsernamePasswordToken(user.getMobile(),user.getPassword(),true,null);
+			subject.login(token);
+			returnObject.setReturnObj(null);
 		}
 		
-		return null;
+		return JacksonUtils.object2json(returnObject);
 	}
 }

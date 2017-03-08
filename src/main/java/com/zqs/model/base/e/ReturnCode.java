@@ -22,6 +22,26 @@ public interface ReturnCode {
 	
 	String PARAMS_NULL_MSG = "参数为空";
 	
+	/** 两次输入密码不一致 */
+	String TWO_INPUT_DIFF_CODE = "1002";
+	
+	String TWO_INPUT_DIFF_MSG = "两次输入密码不一致";
+	
+	/** 短信验证码错误 */
+	String VALIDATE_ERROR_CODE = "1003";
+	
+	String VALIDATE_ERROR_MSG = "短信验证码错误";
+	
+	/** 手机号已注册 */
+	String MOBILE_EXSIT_CODE = "1004";
+	
+	String MOBILE_EXSIT_MSG = "手机号已注册";
+	
+	/** 用户名已存在 */
+	String NAME_EXSIT_CODE = "1005";
+	
+	String NAME_EXSIT_MSG = "用户名已存在";
+	
 	/** 程序错误 */
 	String PROGRAM_ERROR_CODE = "9999";
 	

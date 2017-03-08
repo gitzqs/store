@@ -13,7 +13,6 @@ import com.zqs.model.base.ReturnObject;
 import com.zqs.model.base.e.ReturnCode;
 import com.zqs.model.goods.GoodsType;
 import com.zqs.model.other.Recommend;
-import com.zqs.utils.api.APIConstants;
 import com.zqs.utils.api.WebClient;
 /**
  * 首页
@@ -41,12 +40,12 @@ public class IndexController {
 		
 		
 		//获取首页列表
-		ReturnObject typeResp = WebClient.callRest(APIConstants.SERVER_ADDR + "goods/menu", null);
+		ReturnObject typeResp = WebClient.callRest("goods/menu", null);
 		if(typeResp.getReturnCode().equals(ReturnCode.SUCCESS_CODE)){
 			typeList = (List<GoodsType>) typeResp.getReturnData();
 		}
 		//获取轮播
-		ReturnObject tList = WebClient.callRest(APIConstants.SERVER_ADDR + "other/recommend", null);
+		ReturnObject tList = WebClient.callRest("other/recommend", null);
 		if(tList.getReturnCode().equals(ReturnCode.SUCCESS_CODE)){
 			calList =(List<Recommend>) ((Map<String,Object>) tList.getReturnData()).get("turn");
 		}

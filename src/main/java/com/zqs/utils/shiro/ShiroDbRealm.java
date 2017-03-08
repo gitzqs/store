@@ -21,7 +21,6 @@ import com.zqs.model.base.ReturnObject;
 import com.zqs.model.base.e.EStatus;
 import com.zqs.model.base.e.ReturnCode;
 import com.zqs.model.user.User;
-import com.zqs.utils.api.APIConstants;
 import com.zqs.utils.api.WebClient;
 import com.zqs.utils.json.JacksonUtils;
 /**
@@ -62,15 +61,15 @@ public class ShiroDbRealm extends AuthorizingRealm{
 		UsernamePasswordToken token = (UsernamePasswordToken) anthenticationToken;
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("mobile", token.getUsername());
-		ReturnObject resp = WebClient.callRest(APIConstants.SERVER_ADDR + "user/loadAll", map);
+		ReturnObject resp = WebClient.callRest("user/loadAll", map);
 		if(resp.getReturnCode().equals(ReturnCode.SUCCESS_CODE)){
-			User user = (User) resp.getReturnData();
+			User user = JacksonUtils.json2object(resp.getReturnObj(), User.class);
 			if(null != user){
 				if((new String(token.getPassword())).equals(user.getPassword())){
 					if(user.getStatus() == EStatus.UN_ACTIVE){
 						throw new DisabledAccountException("user is disabled");
 					}
-					SecurityUtils.getSubject().getSession().setAttribute("member", user);
+					SecurityUtils.getSubject().getSession().setAttribute("user", user);
 					SecurityUtils.getSubject().getSession().setTimeout(1000 * 60 * 60 * 24);//会话时间设置：24h
 					
 					return new SimpleAuthenticationInfo(user, user.getPassword(), getName());

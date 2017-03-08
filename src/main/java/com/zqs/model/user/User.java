@@ -1,6 +1,7 @@
 package com.zqs.model.user;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import com.zqs.model.base.REntity;
 import com.zqs.model.base.e.EStatus;
@@ -33,6 +34,12 @@ public class User extends REntity{
 	
 	/** 图片验证码 */
 	private String imgCode;
+	
+	/** 剩余错误次数 */
+	private int errorLeft;
+	
+	/** 冻结到期时间 */
+	private Date freezeTime;
 	
 	/** appid */
 	private String appid;
@@ -154,6 +161,22 @@ public class User extends REntity{
 
 	public void setImgCode(String imgCode) {
 		this.imgCode = imgCode;
+	}
+
+	public int getErrorLeft() {
+		return errorLeft;
+	}
+
+	public void setErrorLeft(int errorLeft) {
+		this.errorLeft = errorLeft;
+	}
+
+	public Date getFreezeTime() {
+		return freezeTime;
+	}
+
+	public void setFreezeTime(Date freezeTime) {
+		this.freezeTime = freezeTime;
 	}
 	
 	

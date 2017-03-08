@@ -2,6 +2,8 @@ package com.zqs.utils.api;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 import net.sf.json.JSONObject;
 
@@ -14,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.zqs.model.base.ReturnObject;
+import com.zqs.model.user.User;
 import com.zqs.utils.json.JacksonUtils;
 
 /**
@@ -32,6 +35,7 @@ public class WebClient {
 	 * @return String
 	 */
 	public static ReturnObject callRest(String url, Object parameter) {
+		url = APIConstants.SERVER_ADDR + url;
         DefaultHttpClient httpClient = new DefaultHttpClient();
         HttpPost postRequest = new HttpPost(url);
         JSONObject jsonObject = JSONObject.fromObject(parameter);
@@ -57,9 +61,13 @@ public class WebClient {
     }
 	
 	public static void main(String args[]){
-//		Map<String,Object> map = new HashMap<String,Object>();
-//		map.put("goodsId", 1);
-		ReturnObject postStatus = callRest(APIConstants.SERVER_ADDR + "goods/menu", null);
-		System.out.println(postStatus.getReturnData());
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("loginName", "15205155720");
+		map.put("password", "123456");
+		ReturnObject postStatus = callRest("user/login", map);
+		
+		User user = (User) JacksonUtils.json2object(postStatus.getReturnObj(), User.class);
+		System.out.println(user.getMobile());
+		
 	}
 }
