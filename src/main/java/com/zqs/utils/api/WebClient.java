@@ -62,12 +62,11 @@ public class WebClient {
 	
 	public static void main(String args[]){
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("loginName", "15205155720");
-		map.put("password", "123456");
-		ReturnObject postStatus = callRest("user/login", map);
+		map.put("userId", 2);
+		ReturnObject ro = callRest("goods/cart", map);
 		
-		User user = (User) JacksonUtils.json2object(postStatus.getReturnObj(), User.class);
-		System.out.println(user.getMobile());
+		
+		System.out.println(ro.getReturnData());
 		
 	}
 }
