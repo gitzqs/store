@@ -18,16 +18,26 @@ import com.zqs.utils.api.WebClient;
 import com.zqs.utils.json.JacksonUtils;
 
 @Controller
-@RequestMapping(value="user")
 public class UserController {
 	
 	/**
-	 * 注册
+	 * 注册页面
 	 * 
 	 * @param 
 	 * @return String
 	 */
-	@RequestMapping(value="/register",method=RequestMethod.POST)
+	@RequestMapping(value="register/",method=RequestMethod.GET)
+	public String register(){
+		return "login/register";
+	}
+	
+	/**
+	 * 注册处理
+	 * 
+	 * @param 
+	 * @return String
+	 */
+	@RequestMapping(value="register/handle",method=RequestMethod.POST)
 	@ResponseBody
 	public String register(@RequestBody String params){
 		User user = (User) JacksonUtils.json2object(params, User.class);
@@ -36,12 +46,23 @@ public class UserController {
 	}
 	
 	/**
+	 * 登录页面
+	 * 
+	 * @param 
+	 * @return String
+	 */
+	@RequestMapping(value="login/",method=RequestMethod.GET)
+	public String login(){
+		return "login/login";
+	}
+	
+	/**
 	 * 登录处理
 	 * 
 	 * @param 
 	 * @return String
 	 */
-	@RequestMapping(value="loginHandle",method=RequestMethod.POST)
+	@RequestMapping(value="login/handle",method=RequestMethod.POST)
 	@ResponseBody
 	public String loginHandle(@RequestBody String params){
 		Subject subject = SecurityUtils.getSubject();

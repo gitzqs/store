@@ -51,6 +51,8 @@
                 /fonts/**=anon 
                 
                 /index/=anon
+                /register/**=anon
+                /login/**=anon
                 <!-- perms[user:query]表示访问此连接需要权限为user:query的用户 -->  
                 <!-- /user=perms[user:query]   -->
                 <!-- roles[manager]表示访问此连接需要用户的角色为manager -->  
