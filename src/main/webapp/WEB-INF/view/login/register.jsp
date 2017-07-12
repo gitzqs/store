@@ -44,7 +44,7 @@
     	<div class="psw psw2">
         	<p class="psw-p1">手机号</p>
             <input type="text" placeholder="请输入手机验证码" name="mobile" id="mobile" value="13646179956"/>
-            <button>获取短信验证码</button>
+            <button id="sendButton" onclick="sendMessage();">获取短信验证码</button>
         </div>
     	<div class="psw psw3">
         	<p class="psw-p1">短信验证码</p>

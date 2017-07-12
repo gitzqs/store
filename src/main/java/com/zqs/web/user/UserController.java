@@ -1,5 +1,6 @@
 package com.zqs.web.user;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zqs.model.base.ReturnObject;
@@ -29,6 +31,23 @@ public class UserController {
 	@RequestMapping(value="register/",method=RequestMethod.GET)
 	public String register(){
 		return "login/register";
+	}
+	
+	/**
+	 * 注册发送短信验证码
+	 * 
+	 * @param 
+	 * @return String
+	 */
+	@RequestMapping(value="register/sendMessage",method=RequestMethod.POST)
+	@ResponseBody
+	public String sendMessage(@RequestParam String mobile){
+		
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("mobile", mobile);
+		map.put("type", 1);
+		ReturnObject returnObject = WebClient.callRest("other/sendPhoneMessage", map);
+		return JacksonUtils.object2json(returnObject);
 	}
 	
 	/**

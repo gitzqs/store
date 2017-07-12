@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.zqs.model.base.ReturnObject;
-import com.zqs.model.user.User;
 import com.zqs.utils.json.JacksonUtils;
 
 /**
@@ -62,11 +61,12 @@ public class WebClient {
 	
 	public static void main(String args[]){
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("userId", 2);
-		ReturnObject ro = callRest("goods/cart", map);
+		map.put("mobile", "15205155720");
+		map.put("type", 1);
+		ReturnObject ro = callRest("other/sendPhoneMessage", map);
 		
 		
-		System.out.println(ro.getReturnData());
+		System.out.println(ro.getReturnMsg());
 		
 	}
 }
